@@ -1,34 +1,28 @@
 import { Type } from "class-transformer";
 import { IsDate, IsNotEmpty, IsOptional, IsString } from "class-validator";
 
-export class CreatePatientDto{
-    
-    @IsNotEmpty()
-    @IsString()
-    patientId: string;
-
-    @IsNotEmpty()
+export class UpdatePatientDto{
+    @IsOptional()
     @IsString()
     firstname: string;
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsString()
     lastname: string;
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsDate()
-    @Type(() => Date)
     dob: Date;
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsString()
     email: string;
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsString()
     phoneNumber: string;
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsString()
     address: string;
 }

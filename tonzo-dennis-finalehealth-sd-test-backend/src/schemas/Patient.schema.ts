@@ -1,6 +1,6 @@
 import { Schema,Prop,SchemaFactory } from "@nestjs/mongoose";
 
-@Schema()
+@Schema({ timestamps:true })
 export class Patient{
 
     @Prop({ unique:true, required:true })
@@ -23,13 +23,6 @@ export class Patient{
 
     @Prop({ required:true })
     address: string;
-
-    @Prop({ required:false, default: Date.now })
-    dateCreated?: Date;
-
-    @Prop({ required:false, default: Date.now })
-    dateUpdated?: Date;
-
 }
 
 export const PatientSchema = SchemaFactory.createForClass(Patient);
