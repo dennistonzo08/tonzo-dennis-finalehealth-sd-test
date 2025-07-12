@@ -15,3 +15,26 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .visit-card:hover {
     transform: translateX(2px);
 }
+
+patients-list{
+    width: 100%;
+}
+
+visits{
+    width: 100%;
+}
+
+patients-page{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+}
+
+@media screen and (width < 1082px) {
+    
+patients-page{
+    flex-direction: column;
+}
+
+}

@@ -2,13 +2,10 @@
   <div class="flex flex-col lg:flex-row gap-6">
     <navbar></navbar>
     <div class="container mx-auto p-4 max-w-7xl ml-64">
-      <div class="flex flex-col lg:flex-row gap-6">
-        <patients></patients>
-        <visits></visits>
-      </div>
+        <router-outlet/>
+        <!-- <dashboard></dashboard> -->
+        <!-- <patients></patients> -->
+        <!-- <visits></visits> -->
     </div>
   </div>
 </div>
-
-
-<router-outlet />

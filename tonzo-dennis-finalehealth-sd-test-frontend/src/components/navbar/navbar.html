@@ -1,0 +1,29 @@
+<div class="fixed h-full w-64 bg-white shadow-md">
+    <div class="p-4">
+        <h1 class="text-xl font-bold mb-6">Patient Management</h1>
+        <nav>
+            <ul class="space-y-2">
+                <li>
+                    <a routerLink="" id="dashboard" class="flex items-center p-2 rounded-md hover:bg-gray-100" (click)="setActiveNav($event)" [class.bg-gray-100]="activeNav === 'dashboard'">
+                        <i class="fas fa-tachometer-alt mr-2"></i>
+                        Dashboard
+                    </a>
+                    <!-- <a routerLink="" id="dashboard" class="flex items-center p-2 rounded-md hover:bg-gray-100">
+                        <i class="fas fa-tachometer-alt mr-2"></i>
+                        Dashboard
+                    </a> -->
+                </li>
+                <li>
+                    <a routerLink="patients" id="patients" class="flex items-center p-2 rounded-md hover:bg-gray-100" (click)="setActiveNav($event)" [class.bg-gray-100]="activeNav === 'patients'">
+                        <i class="fas fa-user-injured mr-2"></i>
+                        Patients
+                    </a>
+                    <!-- <a routerLink="patients" id="patients" class="flex items-center p-2 rounded-md hover:bg-gray-100">
+                        <i class="fas fa-user-injured mr-2"></i>
+                        Patients
+                    </a> -->
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
