@@ -36,6 +36,6 @@ export class PatientService{
     }
 
     getVisits(id:string){
-        return this.visitsModel.find({ patientId:id });
+        return this.visitsModel.find({ patientId:id}).sort({ createdAt: -1 }).exec();
     }
 }
