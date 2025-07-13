@@ -2,6 +2,7 @@ import { Body, Controller,Delete,Get,HttpException,Param,Put,Post, UsePipes, Val
 import { PatientService } from "./patient.service";
 import { CreatePatientDto } from "./dto/createPatient.dto";
 import { UpdatePatientDto } from "./dto/updatePatient.dto";
+import { CreateVisitsDto } from "src/visits/dto/createVisits.dto";
 
 @Controller('patients')
 export class PatientController{
@@ -23,30 +24,29 @@ export class PatientController{
     }
 
 
-    @Put(':patientId')
+    @Put(':id')
     @UsePipes(new ValidationPipe({ transform: true }))
-    updatePatientById(@Param('patientId') patientId:string, @Body() updatepatientdto: UpdatePatientDto){
-        return this.patientService.updatePatient(patientId,updatepatientdto);
+    updatePatientById(@Param('id') id:string, @Body() updatepatientdto: UpdatePatientDto){
+        return this.patientService.updatePatient(id,updatepatientdto);
     }
 
 
-    @Delete(':patientId')
-    deleteUser(@Param('patientId') patientId:string){
-        return this.patientService.deletePatient(patientId);
+    @Delete(':id')
+    deleteUser(@Param('id') id:string){
+        return this.patientService.deletePatient(id);
+    }
+    
+    
+    @Get(':id/visits')
+    getVisits(@Param('id') patientId:string){
+        return this.patientService.getVisits(patientId);
     }
 
-    // @Get(':patientId/visits')
-    // async getPatientsById(@Param('patientId') patientId:string){
-    //     const findPatient = await this.patientService.getPatientById(patientId);
-    //     if(findPatient.length <= 0){
-    //         throw new HttpException('Patient Not Found!',404);
-    //     }
 
-    //     return findPatient;
-    // }
-
-    
-
-    
+    @Post(':id/visits')
+    @UsePipes(new ValidationPipe({ transform: true }))
+    createVisits(@Param('id') patientId:string,@Body() createvisitsdto:CreateVisitsDto){
+        return this.patientService.createVisits(patientId,createvisitsdto);
+    }
 
 }

@@ -1,10 +1,9 @@
 import { Schema,Prop,SchemaFactory } from "@nestjs/mongoose";
+import mongoose from "mongoose";
+import { Visits } from "./Visits.schema";
 
 @Schema({ timestamps:true })
 export class Patient{
-
-    @Prop({ unique:true, required:true })
-    patientId: string;
 
     @Prop({ required:true })
     firstname: string;

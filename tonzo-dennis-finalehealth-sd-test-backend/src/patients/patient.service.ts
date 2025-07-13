@@ -4,11 +4,12 @@ import { Model } from "mongoose";
 import { Patient } from "src/schemas/Patient.schema";
 import { CreatePatientDto } from "./dto/createPatient.dto";
 import { UpdatePatientDto } from "./dto/updatePatient.dto";
-import { arrayNotEmpty } from "class-validator";
+import { Visits } from "src/schemas/Visits.schema";
+import { CreateVisitsDto } from "src/visits/dto/createVisits.dto";
 
 @Injectable()
 export class PatientService{
-    constructor(@InjectModel(Patient.name) private patientModel: Model<Patient>){
+    constructor(@InjectModel(Patient.name) private patientModel: Model<Patient>,@InjectModel(Visits.name) private visitsModel: Model<Visits>){
         
     }
 
@@ -21,15 +22,20 @@ export class PatientService{
         return this.patientModel.find();
     }
 
-    updatePatient(patientId:string, updatepatientdto:UpdatePatientDto){
-        return this.patientModel.find().find({ 'patientId':patientId }).updateOne(updatepatientdto);
+    updatePatient(id:string, updatepatientdto:UpdatePatientDto){
+        return this.patientModel.findByIdAndUpdate(id,updatepatientdto);
     }
 
-    deletePatient(patientId:string){
-        return this.patientModel.find().deleteOne({ 'patientId':patientId });
+    deletePatient(id:string){
+        return this.patientModel.findByIdAndDelete(id);
     }
 
-    // getPatientById(patientId:string){
-    //     return this.patientModel.find().find({ 'patientId':patientId });
-    // }
+    createVisits(patientId:string,createvisitsdto:CreateVisitsDto){
+        const newVisits = new this.visitsModel({...createvisitsdto,patientId});
+        return newVisits.save();
+    }
+
+    getVisits(id:string){
+        return this.visitsModel.find({ patientId:id });
+    }
 }

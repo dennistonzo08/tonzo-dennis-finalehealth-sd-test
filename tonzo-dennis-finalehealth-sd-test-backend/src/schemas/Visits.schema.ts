@@ -1,13 +1,12 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { VisitType } from "src/constants/VisitTypes.enum";
-import { Patient } from "./Patient.schema";
-import mongoose from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
 
 @Schema({ timestamps:true })
 export class Visits{
 
-    @Prop({ type:mongoose.Schema.Types.ObjectId, ref:'Patient' })
-    patientId:Patient
+    @Prop({ required:true,type:mongoose.Schema.Types.ObjectId, ref:'Patient' })
+    patientId:string;
 
     @Prop({ required:true })
     visitDate: Date;

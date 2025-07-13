@@ -1,12 +1,9 @@
 import { Type } from "class-transformer";
-import { IsDate, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsDate, IsNotEmpty, IsOptional, IsString, ValidateNested } from "class-validator";
+import { CreateVisitsDto } from "src/visits/dto/createVisits.dto";
 
 export class CreatePatientDto{
     
-    @IsNotEmpty()
-    @IsString()
-    patientId: string;
-
     @IsNotEmpty()
     @IsString()
     firstname: string;
