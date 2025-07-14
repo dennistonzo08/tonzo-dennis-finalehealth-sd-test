@@ -1,6 +1,5 @@
 import { Type } from "class-transformer";
-import { IsDate, IsNotEmpty, IsOptional, IsString, ValidateNested } from "class-validator";
-import { CreateVisitsDto } from "src/visits/dto/createVisits.dto";
+import { IsDate, IsNotEmpty, IsString } from "class-validator";
 
 export class CreatePatientDto{
     

@@ -14,7 +14,7 @@ export class VisitModalService{
 
     saveVisit(id:string,visitsForm:FormGroup<any>){
         if(id){
-            const api_url = "http://localhost:3000/patients/"+ id +"/visits";
+            const api_url = `http://localhost:3000/patients/${id}/visits`;
             this.http.post(api_url,visitsForm.value).pipe(catchError((error:HttpErrorResponse) => { 
             console.log(error.status);
             return throwError(() => { new Error('Error') })
@@ -27,6 +27,20 @@ export class VisitModalService{
         }else{
             console.log("Invalid Id.");
         }
+    }
+
+    editVisit(visit_id:string,visitsForm:FormGroup<any>){
+        const api_url = `http://localhost:3000/visits/${visit_id}`;
+
+        this.http.put(api_url,visitsForm.value).pipe(catchError((error:HttpErrorResponse) => { 
+            console.log(error.status);
+            return throwError(() => { new Error('Error') })
+        })).subscribe({
+            next: (response) => { 
+                console.log("Successfully Edited! ",response);
+            },
+            error: (err) => { console.log("error: ",err); console.log(visitsForm.value); }
+        });
     }
 
 }

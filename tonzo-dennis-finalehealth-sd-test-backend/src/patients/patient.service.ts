@@ -18,8 +18,19 @@ export class PatientService{
         return newPatient.save();
     }
 
-    getPatient(){
-        return this.patientModel.find();
+    async getPatient(page:number,limit:number,order:string,sortby:string){
+        const skip = page <= 0 ? 1 : (page - 1) * limit;
+        const orderby = 'asc' === order ? 1 : -1;
+        const [data,total] = await Promise.all([
+            this.patientModel.find().skip(skip).limit(limit).sort({ [sortby]:orderby }).exec(),
+            this.patientModel.countDocuments()
+        ]);
+
+        return { data,total,page,lastpage:Math.ceil(total / limit) };
+    }
+
+    getPatientById(id:string){
+        return this.patientModel.findById(id);
     }
 
     updatePatient(id:string, updatepatientdto:UpdatePatientDto){

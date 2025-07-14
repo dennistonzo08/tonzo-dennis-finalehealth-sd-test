@@ -12,6 +12,7 @@ export class UpdatePatientDto{
 
     @IsOptional()
     @IsDate()
+    @Type(() => Date)
     dob: Date;
 
     @IsOptional()

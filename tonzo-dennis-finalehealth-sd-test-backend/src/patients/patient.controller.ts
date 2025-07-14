@@ -1,4 +1,4 @@
-import { Body, Controller,Delete,Get,HttpException,Param,Put,Post, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller,Delete,Get,HttpException,Param,Put,Post, UsePipes, ValidationPipe, Query } from "@nestjs/common";
 import { PatientService } from "./patient.service";
 import { CreatePatientDto } from "./dto/createPatient.dto";
 import { UpdatePatientDto } from "./dto/updatePatient.dto";
@@ -12,8 +12,13 @@ export class PatientController{
     }
 
     @Get()
-    getPatients(){
-        return this.patientService.getPatient();
+    getPatients(@Query('page') page:number=1,limit:number=5,@Query('order') order:string="asc",@Query('sortby') sortby:string="createdAt"){
+        return this.patientService.getPatient(page,limit,order,sortby);
+    }
+
+    @Get(':id')
+    getPatientsById(@Param('id') id:string){
+        return this.patientService.getPatientById(id);
     }
 
 

@@ -6,10 +6,10 @@
         </button>
     </div>
     <div class="flex gap-2 mb-2">
-        <select id="sortBy" class="flex-1 px-3 py-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <option value="">Sort by</option>
-            <option value="name-asc">Name (A-Z)</option>
-            <option value="name-desc">Name (Z-A)</option>
+        <select (change)="getFilteredPatients($event)" id="sortBy" class="flex-1 px-3 py-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="createdAt-asc">Sort by</option>
+            <option value="firstname-asc">Name (A-Z)</option>
+            <option value="firstname-desc">Name (Z-A)</option>
             <option value="email-asc">Email (A-Z)</option>
             <option value="email-desc">Email (Z-A)</option>
         </select>
@@ -18,7 +18,7 @@
 
     <div class="patient-list mb-4">
         <div id="patientListContainer">
-            <div *ngFor="let patient of patients$ | async; let i = index;" (click)="selectPatient(i,patient)" [ngClass]="{ 'selected-patient': selectedIndex === i }" class="patient-card p-3 border-b cursor-pointer transition duration-200 hover:bg-gray-50 rounded mb-2">
+            <div *ngFor="let patient of patients$; let i = index;" (click)="selectPatient(i,patient)" [ngClass]="{ 'selected-patient': selectedIndex === i }" class="patient-card p-3 border-b cursor-pointer transition duration-200 hover:bg-gray-50 rounded mb-2">
                 <div class="flex justify-between items-center">
                     <div>
                         <h3 class="font-medium text-gray-800">{{ patient.firstname + " " + patient.lastname }}</h3>
@@ -26,10 +26,10 @@
                         <p class="text-xs text-gray-500">{{ patient.email }}</p>
                     </div>
                     <div class="flex items-center gap-1">
-                        <button class="text-gray-500 hover:text-blue-500">
+                        <button (click)="editModal(patient._id)" class="text-gray-500 hover:text-blue-500">
                             <i class="fas fa-edit"></i>
                         </button>
-                        <button class="text-gray-500 hover:text-red-500">
+                        <button (click)="deletePatient(patient._id)" class="text-gray-500 hover:text-red-500">
                             <i class="fas fa-trash"></i>
                         </button>
                         <i class="fas fa-chevron-right text-gray-400"></i>
@@ -40,11 +40,11 @@
     </div>
 
     <div class="pagination-controls flex justify-center items-center gap-2">
-        <button id="prevPage" class="px-3 py-1 border rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
+        <button id="prevPage" (click)="prevPage()" class="px-3 py-1 border rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
             <i class="fas fa-chevron-left"></i>
         </button>
-        <span id="pageInfo" class="text-sm text-gray-600">Page 1</span>
-        <button id="nextPage" class="px-3 py-1 border rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
+        <span id="pageInfo" class="text-sm text-gray-600">Page {{ page }}</span>
+        <button id="nextPage" (click)="nextPage()" class="px-3 py-1 border rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
             <i class="fas fa-chevron-right"></i>
         </button>
     </div>

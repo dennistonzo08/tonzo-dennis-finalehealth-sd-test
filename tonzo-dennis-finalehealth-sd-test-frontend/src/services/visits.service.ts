@@ -22,6 +22,16 @@ export class VisitsService{
         return null;
     }
 
+    getVisitDetails(visitId:string){
+        const api_url = `http://localhost:3000/visits/${visitId}`;
+        return this.http.get(api_url).pipe(retry(3),catchError(this.handleError));
+    }
+
+    deleteVisitById(visitId:string){
+        const api_url = `http://localhost:3000/visits/${visitId}`;
+        return this.http.delete(api_url).pipe(retry(3),catchError(this.handleError));
+    }
+
     handleError(error:HttpErrorResponse){
     console.log(error.status);
 

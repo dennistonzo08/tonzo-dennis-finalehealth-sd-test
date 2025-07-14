@@ -11,9 +11,19 @@ export class PatientService{
 
     }
 
-    getAllPatients(){
-        const api_url = "http://localhost:3000/patients";
-        return this.http.get<Patients[]>(api_url).pipe(retry(3),catchError(this.handleError));
+    getAllPatients(page:number=1,orderby:string ="asc",sortby:string="createdAt"){
+        const api_url = `http://localhost:3000/patients?page=${page}&order=${orderby}&sortby=${sortby}`;
+        return this.http.get<Patients>(api_url).pipe(retry(3),catchError(this.handleError));
+    }
+
+    getPatientById(id:string){
+        const api_url = `http://localhost:3000/patients/${id}`;
+        return this.http.get(api_url).pipe(retry(3),catchError(this.handleError));
+    }
+
+    deletePatientById(id:string){
+        const api_url = `http://localhost:3000/patients/${id}`
+        return this.http.delete(api_url).pipe(retry(3),catchError(this.handleError));
     }
 
     handleError(error:HttpErrorResponse){
@@ -27,11 +37,17 @@ export class PatientService{
 }
 
 export interface Patients{
-    _id:string;
-    firstname:string;
-    lastname:string;
-    dob:Date;
-    email:string;
-    phoneNumber:string;
-    address:string;
+    data:[{
+        _id:string,
+        firstname:string,
+        lastname:string,
+        dob:Date,
+        email:string,
+        phoneNumber:string,
+        address:string
+
+    }];
+    total:number;
+    page:number;
+    lastpage:number;
 }
